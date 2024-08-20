@@ -1,0 +1,130 @@
+//exibe todos os dados ja existentes 
+
+show dbs;
+
+//selcionando um novo banco de dados para tabalho 
+//(se não existir, será craido em memoria e passra
+//a existir em disco quando algo for efetivamete
+// inserido nele)
+use estoque;
+
+//Exibindo as coleçoes do banco de dados ativo
+show collections;
+
+//Primeira inserção 
+db.produto.insertOne({
+    nome:"Vassoura de piaçava",
+    preco: 31.77,
+    categoria: "Limpeza"
+});
+
+// Segunda inserção 
+db.produto.insertOne({
+    nome:"Café",
+    marca:"Dubom",
+    quantidade:500,
+    unidade:"g",
+    preco:22.38,
+    categoria:"Alimentos e bebidas"
+    estoque:52,
+});
+
+//Terceira inserção
+db.produto.insertOne({
+    nome_oficial: "Repubica Francesa",
+    nome_comum: "França",
+    capital: "Paris",
+    continente: "Europa",
+    chefe_estado: "Emmanuel Macron",
+    lingua_oficial: "Francês",
+});
+
+// Exibindo os produts cadastrados 
+db.produto.find();
+
+//Exibindo apenas o produto cujo o nome é igual a "Café"
+db.produto.find({nome:'Café'});
+
+// Exibindo apenas o produto cujo nome é igual a "café"(case INSENSITIVE)
+// (usando expressão reular -regex)
+db.produto.find({nome:/^café$/i});
+
+//inserindo um produto com subdocumento 
+db.produto.insertOne({
+    nome:"Biscoito",
+    marca:"Crocantão",
+    quantidade:200,
+    unidade:"g",
+    preco: 8.19,
+    categoria: "Alimentos e bebidas",
+    estoque: 100,
+    fornecedor:{
+        nome: "Indústria de Alimentos Bacana S/A",
+        cnpj: "01.234.567/001-89",
+        email: "contato@bacana.ind.br",
+        representante: "Astolfo Alvarenga",
+    }
+});
+
+//Inserindo outro produto, com dois subdocumento
+db.produto.insertOne({
+    nome: "Doce de leite",
+    marca: "Minerim",
+    preco: 17.65,
+    fornecedor:{
+        nome:"Industria de Alimentos Bacana S/A",
+        cnpj:"01.234.567/0001-89",
+    },
+    informacao_nutricional:{
+        acucares_g: 75,
+        gordura_saturada_g: 12,
+        proteina_:13,
+    }
+});
+
+//Listando os produtos foncecidos pela emresa cujo CNPJ é 01.234.567/0001-89
+db.produto.find({"fornecedor.cnpj":"01.234.567/0001-89"});
+
+// produto com mais de um fornecedor (vetor de subconjuto)
+db.produto.insertOne({
+    nome: "Paçoca",
+    marca: "Junina",
+    preco: 22.48,
+    fornecedor:[
+        {
+            nome: "Industria de Alimentos Bacana S/A",
+            cnpj:"01.234.567/0001-89"
+        },{
+            nome:"Distribuidora de Doces Pingo de Mel Ltda",
+            cnpj:"90.756.432/0001-10",
+        }
+    ]
+    });
+
+//Listando os produtos por ordem crescente de nome (alfabetica)
+db.produto.find().sort({nome:1});
+
+////Listando os produtos por ordem decrecente de nome (alfabetica)
+db.produto.find().sort({nome:-1});
+
+// Inserindo produto com campo multivalorado
+db.produto.insertOne({
+    nome:"Bicabornato de sodio",
+    marca:"Q-Rende",
+    preco:3.45,
+    categoria:[
+        "Alimentos e bebidas",
+        "Limpeza"
+    ],
+    fornecedor:{
+        nome:"Distribuidora de Doces Pingo de Mel Ltda",
+        cnpj:"90.756.432/0001-10",
+    }
+});
+
+//Pesquisando produto da categoria "Limpeza"
+db.produto.find({categoria:"Limpeza"});
+
+//pesquisando produto que não são da categoria "limpeza"
+//$ne = not equal (não igual, diferente)
+db.produto.find({categoria:{$ne: "Limpeza"}});
