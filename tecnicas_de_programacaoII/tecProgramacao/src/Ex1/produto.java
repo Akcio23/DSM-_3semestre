@@ -1,9 +1,12 @@
+package Ex1;
+
 import java.util.Objects;
 
 public class produto {
     int codigo;
     String descricao;
     double valor;
+    static String cidade = "franca";
 
     public produto(int codigo, String descricao, double valor) {
         this.codigo = codigo;

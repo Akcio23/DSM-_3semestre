@@ -1,3 +1,5 @@
+package Ex1;
+
 import java.util.List;
 import java.util.Objects;
 import java.util.ArrayList;
@@ -10,6 +12,7 @@ public class pedido {
     public pedido(int codigo) {
         this.codigo = codigo;
         this.listaProduto = new ArrayList<>();
+
     }
 
     @Override

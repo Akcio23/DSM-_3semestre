@@ -1,3 +1,5 @@
+package Ex1;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -12,7 +14,7 @@ public class Main {
         x.listaProduto.add(p2);
         x.listaProduto.add(p3);
 
-        pedido y = new pedido(002);
+        pedido y = new pedido(001);
         y.setNomeCliente("Isabela Cristina");
         y.listaProduto.add(p2);
         y.listaProduto.add(p3);
@@ -33,6 +35,8 @@ public class Main {
             System.out.println("Iguais");
         }else {
             System.out.println("Diferentes");
-        }
+        };
+
+        produto.cidade = "fracna";
     }
 }
