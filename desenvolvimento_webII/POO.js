@@ -12,3 +12,5 @@ class Carro{
         console.log(`O carro é da ${this.marca}, modelo ${this.modele} e ano ${ano}`) 
     }
 }
+
+// verificação 
